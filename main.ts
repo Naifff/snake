@@ -19,6 +19,7 @@ input.onButtonPressed(Button.B, function () {
     } else if (snake.get(LedSpriteProperty.Direction) == 180) {
         snake.turn(Direction.Left, 90)
     }
+    game.resume()
 })
 function move () {
     if (snake.get(LedSpriteProperty.X) == 4 && snake.get(LedSpriteProperty.Direction) == 90) {
