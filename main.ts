@@ -38,14 +38,14 @@ function move () {
         food.set(LedSpriteProperty.X, randint(0, 4))
         food.set(LedSpriteProperty.Y, randint(0, 4))
     }
-    basic.pause(600)
+    basic.pause(400)
 }
 let food: game.LedSprite = null
 let snake: game.LedSprite = null
 snake = game.createSprite(2, 2)
 food = game.createSprite(randint(0, 4), randint(0, 4))
 food.set(LedSpriteProperty.Brightness, 100)
-game.startCountdown(10000)
+game.startCountdown(60000)
 basic.forever(function () {
     move()
 })
