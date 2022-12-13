@@ -26,29 +26,30 @@ input.onButtonPressed(Button.B, function () {
     }
 })
 function move () {
-    if (snake.get(LedSpriteProperty.X) == 4 && snake.get(LedSpriteProperty.Direction) == 90) {
-        snake.set(LedSpriteProperty.X, 0)
-    } else if (snake.get(LedSpriteProperty.X) == 0 && snake.get(LedSpriteProperty.Direction) == -90) {
-        snake.set(LedSpriteProperty.X, 4)
-    } else if (snake.get(LedSpriteProperty.Y) == 0 && snake.get(LedSpriteProperty.Direction) == 0) {
-        snake.set(LedSpriteProperty.Y, 4)
-    } else if (snake.get(LedSpriteProperty.Y) == 4 && snake.get(LedSpriteProperty.Direction) == 180) {
-        snake.set(LedSpriteProperty.Y, 0)
-    } else {
-        snake.move(1)
-    }
-    if (snake.isTouching(food)) {
-        score += 1
-        step += 4
-        speed = speed * 0.9
-        food.set(LedSpriteProperty.X, randint(0, 4))
-        food.set(LedSpriteProperty.Y, randint(0, 4))
-    }
-    basic.pause(speed)
-    step += -1
     if (step <= 0) {
-        game.setScore(score)
+        game.addScore(score)
         game.gameOver()
+    } else {
+        if (snake.get(LedSpriteProperty.X) == 4 && snake.get(LedSpriteProperty.Direction) == 90) {
+            snake.set(LedSpriteProperty.X, 0)
+        } else if (snake.get(LedSpriteProperty.X) == 0 && snake.get(LedSpriteProperty.Direction) == -90) {
+            snake.set(LedSpriteProperty.X, 4)
+        } else if (snake.get(LedSpriteProperty.Y) == 0 && snake.get(LedSpriteProperty.Direction) == 0) {
+            snake.set(LedSpriteProperty.Y, 4)
+        } else if (snake.get(LedSpriteProperty.Y) == 4 && snake.get(LedSpriteProperty.Direction) == 180) {
+            snake.set(LedSpriteProperty.Y, 0)
+        } else {
+            snake.move(1)
+        }
+        if (snake.isTouching(food)) {
+            score += 1
+            step += 6
+            speed = speed * 0.96
+            food.set(LedSpriteProperty.X, randint(0, 4))
+            food.set(LedSpriteProperty.Y, randint(0, 4))
+        }
+        basic.pause(speed)
+        step += -1
     }
 }
 let score = 0
@@ -62,7 +63,7 @@ start = 0
 snake = game.createSprite(2, 2)
 food = game.createSprite(randint(0, 4), randint(0, 4))
 food.set(LedSpriteProperty.Brightness, 50)
-step = 15
+step = 20
 score = 0
 basic.forever(function () {
     move()
