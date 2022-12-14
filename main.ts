@@ -11,6 +11,9 @@ input.onButtonPressed(Button.A, function () {
         }
     }
 })
+input.onButtonPressed(Button.AB, function () {
+    control.reset()
+})
 input.onButtonPressed(Button.B, function () {
     if (start == 1) {
         if (snake.get(LedSpriteProperty.Direction) == 90) {
@@ -22,13 +25,20 @@ input.onButtonPressed(Button.B, function () {
         } else if (snake.get(LedSpriteProperty.Direction) == 180) {
             snake.turn(Direction.Left, 90)
         }
-        game.resume()
     }
 })
 function move () {
     if (step <= 0) {
-        game.addScore(score)
-        game.gameOver()
+        game.pause()
+        basic.showLeds(`
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            `)
+        proportionalFont.showString("score: " + score, 150)
+        basic.pause(5000)
     } else {
         if (snake.get(LedSpriteProperty.X) == 4 && snake.get(LedSpriteProperty.Direction) == 90) {
             snake.set(LedSpriteProperty.X, 0)
@@ -66,8 +76,9 @@ food.set(LedSpriteProperty.Brightness, 50)
 step = 20
 score = 0
 basic.forever(function () {
-    move()
     if (start == 0) {
         start = 1
+    } else {
+        move()
     }
 })
