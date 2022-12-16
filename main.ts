@@ -1,4 +1,17 @@
-input.onButtonPressed(Button.A, function () {
+buttonClicks.onButtonDown(buttonClicks.AorB.B, function () {
+    if (start == 1) {
+        if (snake.get(LedSpriteProperty.Direction) == 90) {
+            snake.turn(Direction.Left, 90)
+        } else if (snake.get(LedSpriteProperty.Direction) == 0) {
+            snake.turn(Direction.Right, 90)
+        } else if (snake.get(LedSpriteProperty.Direction) == -90) {
+            snake.turn(Direction.Right, 90)
+        } else if (snake.get(LedSpriteProperty.Direction) == 180) {
+            snake.turn(Direction.Left, 90)
+        }
+    }
+})
+buttonClicks.onButtonDown(buttonClicks.AorB.A, function () {
     if (start == 1) {
         if (snake.get(LedSpriteProperty.Direction) == 90) {
             snake.turn(Direction.Right, 90)
@@ -14,31 +27,10 @@ input.onButtonPressed(Button.A, function () {
 input.onButtonPressed(Button.AB, function () {
     control.reset()
 })
-input.onButtonPressed(Button.B, function () {
-    if (start == 1) {
-        if (snake.get(LedSpriteProperty.Direction) == 90) {
-            snake.turn(Direction.Left, 90)
-        } else if (snake.get(LedSpriteProperty.Direction) == 0) {
-            snake.turn(Direction.Right, 90)
-        } else if (snake.get(LedSpriteProperty.Direction) == -90) {
-            snake.turn(Direction.Right, 90)
-        } else if (snake.get(LedSpriteProperty.Direction) == 180) {
-            snake.turn(Direction.Left, 90)
-        }
-    }
-})
 function move () {
     if (step <= 0) {
-        game.pause()
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            . . . . .
-            . . . . .
-            . . . . .
-            `)
-        proportionalFont.showString("score: " + score, 150)
-        basic.pause(5000)
+        game.addScore(score)
+        game.gameOver()
     } else {
         if (snake.get(LedSpriteProperty.X) == 4 && snake.get(LedSpriteProperty.Direction) == 90) {
             snake.set(LedSpriteProperty.X, 0)
